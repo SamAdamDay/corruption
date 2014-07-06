@@ -128,9 +128,9 @@ function c($g,$y,$s)
 			if ($y)
 			{
 				$f = hljs.highlight("javascript",$f,true).value // Highlight
-					.replace(new RegExp(C+C,"g"),"Ö") // Change the double yin-yangs to a control sequence temporarily
+					.replace(new RegExp(C+C,"g"),"„÷") // Change the double yin-yangs to a control sequence temporarily
 					.replace(new RegExp(C,"g"),"<span class='yin-yang-small'>"+C+"</span>") // Pick out the singleton yin-yangs
-					.replace(/Ö/g,"<span class='yin-yang-large'>"+C+"</span>"); // Replace the double yin-yangs
+					.replace(/„÷/g,"<span class='yin-yang-large'>"+C+"</span>"); // Replace the double yin-yangs
 				if (!$s[$i]) $f = "<span class='bad-statement'>"+$f+"</span>"; // If an error occurred with this statement, highlight that
 			}
 
@@ -199,7 +199,7 @@ function q()
 // The array of statements
 s = [
 	// Replace this element with the score; duplicate some specific items; duplicate some random items; shuffle the statements; add a load of space; add the player; add a gold piece
-	"eval(s[1]); s.push(s[1],s[1],s[1]); for (i=0;i<3;i++){k=u(r()*(s.length-1));s.splice(k,0,s[k]);} for (i=s.length-1;i>0;i--){j=u(r()*(s.length-1));t=s[i];s[i]=s[j];s[j]=t;} b=c(s).split(S);for(i=0;i<100;i++){k=u(r()*(b.length-1));b=b.slice(0,k).concat(b[k]+new Array(u(r()*40+1)).join(S),b.slice(k+1));}s=d(b.join(S)); b=c(s);k=u(r()*(b.length-1));s=d(b.slice(0,k)+P+b.slice(k+1)); b=c(s).split(t=new Array(L).join(S));k=u(r()*(b.length-1));s=d(b.slice(0,k).concat(b[k]+G,b.slice(k+1)).join(t));",
+	"eval(s[1]); s.push(s[1],s[1],s[1]); for (i=0;i<3;i++){k=u(r()*(s.length-1));s.splice(k,0,s[k]);} for (i=s.length-1;i>0;i--){j=u(r()*(s.length-1));t=s[i];s[i]=s[j];s[j]=t;} b=c(s).split(S);for(i=0;i<140;i++){k=u(r()*(b.length-1));b=b.slice(0,k).concat(b[k]+new Array(u(r()*50+1)).join(S),b.slice(k+1));}s=d(b.join(S)); b=c(s);k=u(r()*(b.length-1));s=d(b.slice(0,k)+P+b.slice(k+1)); b=c(s).split(t=new Array(L).join(S));k=u(r()*(b.length-1));s=d(b.slice(0,k).concat(b[k]+G,b.slice(k+1)).join(t));",
 	// Update the score on the screen
 	"s[0]='score='+f+';'",
 	// Move up if the up key is pressed
@@ -213,7 +213,7 @@ s = [
 	// Randomly swap two adjacent statements
 	" if ( r ( ) < 0.004 ) { k = u ( r ( ) * ( s . length - 2 ) ) ; t = s [ k ] ; s [ k ] = s [ k + 1 ] ; s [ k + 1 ] = t } ", 
 	// Randomly duplicate a statement
-	" if ( r ( ) < 0.005 ) { k = u ( r ( ) * ( s . length - 1 ) ) ; s . splice ( k , 0 , s [ k ] ) } ", 
+	" if ( r ( ) < 0.009 ) { k = u ( r ( ) * ( s . length - 1 ) ) ; s . splice ( k , 0 , s [ k ] ) } ", 
 	// Randomly duplicate a space
 	" if ( r ( ) < 0.3 ) { b = c ( s ) . split (  S ) ; k = u ( r ( ) * ( b . length - 1 ) ) ; s = d ( b . slice ( 0 , k ) . concat ( b [ k ] + S , b . slice ( k + 1 ) ) . join ( S ) ) } ",
 	// Randomly remove a space
@@ -225,27 +225,12 @@ s = [
 	// Randomly reduce the score
 	" if ( r ( ) < 0.4 ) { f-- }",
 	// The virus; it self replicates in available space, and eats gold
-	"t='/*'+'*/';if(r()<0.5)s=d(c(s).replace(/ {157}/m,t+s[_i]+t));if(r()<0.01){b=c(s).split(C);k=u(r()*(b.length-2));b.splice(k,2,b[k]+'#'+b[k+1]);s=d(b.join(C))}"
+	"t='/*'+'*/';if(r()<0.5)s=d(c(s).replace(/ {157}/m,t+s[_i]+t));if(r()<0.01){b=c(s).split(C);k=u(r()*(b.length-2));b.splice(k,2,b[k]+'#'+b[k+1]);s=d(b.join(C))}",
+	// The monster-spawner; it creates umlaut-monsters: /*Ä<Ä*/ /*Ë<Ë*/ /*Ï<Ï*/ /*Ö<Ö*/ /*Ü<Ü*/
+	" if ( r ( ) < 0.03 ) { b = c ( s ) . split ( t = new Array ( 7 ) . join ( S ) ); if ( b . length > 2 ) { w = [ 'Ä' , 'Ë' , 'Ï' , 'Ö' , 'Ü' ] [ u ( r ( ) * 4 ) ] ; k = u ( r ( ) * ( b . length - 2 ) ) ; s = d ( b . slice ( 0 , k ) . concat ( b [ k ] + '/*' + w + [ '<' , '>' ] [ u ( r ( ) ) ] + w + '*/'  + b [ k + 1 ], b . slice ( k + 2 ) ) . join ( t ) ) ; } }",
+	// The monster-controller; it moves umlaut-monsters left and right
+	" a1 = '\\\\/' ; a2 = '\\\\*' ; t = P + C + a1 + a2 + S ; s = d ( c ( s ) . replace ( new RegExp ( '([^' + t + '])' + a1 + a2 + '([ÄËÏÖÜ])<[ÄËÏÖÜ]' + a2 + a1 , 'g' ) , '$1/*$2>$2*/' ) . replace ( new RegExp ( '([' + t + '])' + a1 + a2 + '([ÄËÏÖÜ])<[ÄËÏÖÜ]' + a2 + a1 , 'g' ) , '/*$2<$2*/' + S ) . replace ( new RegExp ( a1 + a2 + '([ÄËÏÖÜ])>[ÄËÏÖÜ]' + a2 + a1 + '([^' + t + '])' , 'g' ) , '/*$1<$1*/$2' ) . replace ( new RegExp ( a1 + a2 + '([ÄËÏÖÜ])>[ÄËÏÖÜ]' + a2 + a1 + '([' + t + '])' , 'g' ) , S+'/*$1>$1*/' ) )"
 ];
-
-
-/*
-s=[];
-for ($i=0;$i<X;$i++)
-{
-	s.push(new Array(u(r()*500+1)).join(String.fromCharCode($i+33)));
-}
-
-$b = c(s);
-for ($i=0;$i<100;$i++)
-{
-	$k = u(r()*($b.length-1));
-	$b = $b.slice(0,$k) + G + $b.slice($k);
-}
-s = d($b);
-*/
-
-//s = ["1111111111111111111111/**/111111111111111dfsdfsdfsdfsdfsdf111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111","aaaaaaaaaaaa/*dfsdf*/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"];
 
 // Main Loop
 $m = setInterval(function () {
@@ -291,7 +276,7 @@ $m = setInterval(function () {
 	for (_i in $t)
 	{
 		$o[_i] = true;
-		try { eval($t[_i]); } catch($u) { $o[_i] = false } // Execute the statement, ignoring any errors
+		try { eval($t[_i]); } catch($u) { console.log($u); $o[_i] = false } // Execute the statement, ignoring any errors
 	}
 
 	// Update the maximum score
