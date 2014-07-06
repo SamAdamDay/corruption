@@ -1,0 +1,111 @@
+/*
+
+Sam's highlight.js theme
+
+*/
+
+.hljs {
+  display: block; padding: 0.5em;
+  background: #474949; color: #D1D9E1;
+}
+
+
+.hljs-body,
+.hljs-collection {
+   color: #D1D9E1;
+}
+
+.hljs-comment,
+.hljs-template_comment,
+.diff .hljs-header,
+.hljs-doctype,
+.lisp .hljs-string,
+.hljs-javadoc {
+  color: #29679E;
+}
+
+.hljs-keyword,
+.clojure .hljs-attribute,
+.hljs-winutils,
+.javascript .hljs-title,
+.hljs-addition,
+.css .hljs-tag {
+  color: #5500AA;
+}
+
+.hljs-number { color: #00B730; }
+
+.hljs-command,
+.hljs-string,
+.hljs-tag .hljs-value,
+.hljs-phpdoc,
+.tex .hljs-formula,
+.hljs-regexp,
+.hljs-hexcolor {
+  color: #29BCA6;
+}
+
+.hljs-title,
+.hljs-localvars,
+.hljs-function .hljs-title,
+.hljs-chunk,
+.hljs-decorator,
+.hljs-built_in,
+.lisp .hljs-title,
+.hljs-identifier
+{
+  color: #D1D100;
+}
+
+.hljs-class .hljs-keyword
+{
+  color: #EF1C20;
+}
+
+.hljs-variable,
+.lisp .hljs-body,
+.smalltalk .hljs-number,
+.hljs-constant,
+.hljs-class .hljs-title,
+.hljs-parent,
+.haskell .hljs-label,
+.hljs-id,
+.lisp .hljs-title,
+.clojure .hljs-title .hljs-built_in {
+   color: #0E3F5E;
+}
+
+.hljs-tag .hljs-title,
+.hljs-rules .hljs-property,
+.django .hljs-tag .hljs-keyword,
+.clojure .hljs-title .hljs-built_in {
+  font-weight: bold;
+}
+
+.hljs-attribute,
+.clojure .hljs-title {
+  color: #6093BC;
+}
+
+.hljs-preprocessor,
+.hljs-pragma,
+.hljs-pi,
+.hljs-shebang,
+.hljs-symbol,
+.hljs-symbol .hljs-string,
+.diff .hljs-change,
+.hljs-special,
+.hljs-attr_selector,
+.hljs-important,
+.hljs-subst,
+.hljs-cdata {
+  color: #4A57D3;
+}
+
+.hljs-deletion {
+  color: #FF3838;
+}
+
+.tex .hljs-formula {
+  background: #8AF268;
+}

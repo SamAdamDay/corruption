@@ -1,0 +1,32 @@
+body {
+	margin:0 5px;
+	padding:0;
+}
+
+pre#n {
+	font-family: "Ubuntu Mono";
+	margin:0;
+	font-size:13px;
+}
+
+span.bad-statement {
+	background-color: #FF6B6B;
+}
+
+span.yin-yang-small {
+	font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	width:7px;
+	display:inline-block;
+	font-size:9px;
+	line-height:12px;
+	height:12px;
+}
+
+span.yin-yang-large {
+	font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	width:14px;
+	display:inline-block;
+	font-size:15px;
+	line-height:12px;
+	height:12px;
+}
