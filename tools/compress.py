@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 import sys
 import httplib, urllib
@@ -40,14 +41,28 @@ combined = intro + compressed
 # Remove any newlines
 combined = combined.replace("\n","")
 
-# Wrap the text
+# Wrap the text, ignoring 〈tags〉
 print "Wrapping text..."
-wrapped = "\n".join([combined[i:i+SCREEN_WIDTH] for i in range(0,len(combined),SCREEN_WIDTH)])
+combined = combined.decode("utf-8")
+wrapped = ""
+pos = 0
+inTag = False
+for i in combined:
+	wrapped += i
+	if i == u"\u2329": inTag = True
+	if i == u"\u232A": 
+		inTag = False
+	elif not inTag: # Sneaky
+		pos = (pos + 1) % SCREEN_WIDTH
+		if pos == 0: wrapped += "\n"
 
 # Highlight the text
 print "Highlighting syntax..."
 escaped = wrapped.replace("\\","\\\\").replace("\"","\\\"").replace("\n","\\n")
 highlighted = subprocess.check_output(["nodejs","-e","h=require(\"highlight.js\");console.log(h.highlight(\"javascript\",\""+escaped+"\",true).value)"])
+
+# Replace 〈,〉 with <,>
+highlighted = highlighted.decode("utf-8").replace(u"\u2329",u"<").replace(u"\u232A",u">")
 
 # Escape backshlashes for the regex engine
 highlighted = highlighted.replace("\\","\\\\")

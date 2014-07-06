@@ -9,6 +9,15 @@ pre#n {
 	font-size:13px;
 }
 
+a {
+	text-decoration:underline;
+	color:inherit;
+}
+
+a:hover {
+	text-decoration:none;
+}
+
 span.bad-statement {
 	background-color: #FF6B6B;
 }
