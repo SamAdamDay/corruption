@@ -8,6 +8,7 @@ G = "/*☯☯*/"; // The gold string
 C = "☯"; // The gold piece
 S = " "; //  A single space
 L = 6; // The length of the gold string
+Q = 450; // The maximum speed
 
 f = 0; // The score
 g = 0; // The maximum of the score over time
@@ -36,7 +37,7 @@ $l.register_many([
 		"keys": "up", 
 		"on_keydown": function() {
 			v.UP[0] = true;
-			v.UP[1]++;
+			if (v.UP[1]<Q) v.UP[1]++;
 		},
 		"on_keyup": function() {
 			v.UP[0] = false;
@@ -46,7 +47,7 @@ $l.register_many([
 		"keys": "down", 
 		"on_keydown": function() {
 			v.DOWN[0] = true;
-			v.DOWN[1]++;
+			if (v.DOWN[1]<Q) v.DOWN[1]++;
 		},
 		"on_keyup": function() {
 			v.DOWN[0] = false;
@@ -56,7 +57,7 @@ $l.register_many([
 		"keys": "left", 
 		"on_keydown": function() {
 			v.LEFT[0] = true;
-			v.LEFT[1]+=5;
+			if (v.LEFT[1]<Q) v.LEFT[1]+=5;
 		},
 		"on_keyup": function() {
 			v.LEFT[0] = false;
@@ -66,7 +67,7 @@ $l.register_many([
 		"keys": "right", 
 		"on_keydown": function() {
 			v.RIGHT[0] = true;
-			v.RIGHT[1]+=5;
+			if (v.RIGHT[1]<Q) v.RIGHT[1]+=5;
 		},
 		"on_keyup": function() {
 			v.RIGHT[0] = false;
@@ -177,17 +178,16 @@ function q()
 
 	// Add a load of space to start things off
 	$b = c(s).split(" ");
-	for ($i=0; $i<100; $i++)
+	for ($i=0; $i<140; $i++)
 	{ 
 		$k = u(r()*($b.length-1));
-		$b = $b.slice(0,$k).concat($b[$k]+new Array(u(r()*40+1)).join(" "),$b.slice($k+1));
+		$b = $b.slice(0,$k).concat($b[$k]+new Array(u(r()*50+1)).join(" "),$b.slice($k+1));
 	}
 	s = d($b.join(" "));
 
 	// Add the player in a random location
-	$b = c(s);
-	$k = u(r()*($b.length-1));
-	s = d($b.slice(0,$k)+P+$b.slice($k+1));
+	$k = u(r()*(s.length-1));
+	s.splice($k,0,P);
 
 	// Add a gold piece to a random space
 	$b = c(s).split($t = new Array(L).join(" ")); 
@@ -199,7 +199,7 @@ function q()
 // The array of statements
 s = [
 	// Replace this element with the score; duplicate some specific items; duplicate some random items; shuffle the statements; add a load of space; add the player; add a gold piece
-	"eval(s[1]); s.push(s[1],s[1],s[1]); for (i=0;i<3;i++){k=u(r()*(s.length-1));s.splice(k,0,s[k]);} for (i=s.length-1;i>0;i--){j=u(r()*(s.length-1));t=s[i];s[i]=s[j];s[j]=t;} b=c(s).split(S);for(i=0;i<140;i++){k=u(r()*(b.length-1));b=b.slice(0,k).concat(b[k]+new Array(u(r()*50+1)).join(S),b.slice(k+1));}s=d(b.join(S)); b=c(s);k=u(r()*(b.length-1));s=d(b.slice(0,k)+P+b.slice(k+1)); b=c(s).split(t=new Array(L).join(S));k=u(r()*(b.length-1));s=d(b.slice(0,k).concat(b[k]+G,b.slice(k+1)).join(t));",
+	"eval(s[1]); s.push(s[1],s[1],s[1]); for (i=0;i<3;i++){k=u(r()*(s.length-1));s.splice(k,0,s[k]);} for (i=s.length-1;i>0;i--){j=u(r()*(s.length-1));t=s[i];s[i]=s[j];s[j]=t;} b=c(s).split(S);for(i=0;i<140;i++){k=u(r()*(b.length-1));b=b.slice(0,k).concat(b[k]+new Array(u(r()*50+1)).join(S),b.slice(k+1));}s=d(b.join(S)); k=u(r()*(s.length-1));s.splice(k,0,P); b=c(s).split(t=new Array(L).join(S));k=u(r()*(b.length-1));s=d(b.slice(0,k).concat(b[k]+G,b.slice(k+1)).join(t));",
 	// Update the score on the screen
 	"s[0]='score='+f+';'",
 	// Move up if the up key is pressed
@@ -276,7 +276,7 @@ $m = setInterval(function () {
 	for (_i in $t)
 	{
 		$o[_i] = true;
-		try { eval($t[_i]); } catch($u) { console.log($u); $o[_i] = false } // Execute the statement, ignoring any errors
+		try { eval($t[_i]); } catch($u) { $o[_i] = false } // Execute the statement, ignoring any errors
 	}
 
 	// Update the maximum score
