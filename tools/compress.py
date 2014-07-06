@@ -45,7 +45,7 @@ highlighted = highlighted.replace("\\","\\\\")
 
 # Put the highlighted code in the HTML file
 print "Saving to the HTML file..."
-f = open("../game.html","r+")
+f = open("../index.html","r+")
 html = f.read()
 new_html = re.sub("<pre id=\"n\">.*</pre>",'<pre id="n">'+highlighted+'</pre>',html,flags=re.S|re.M)
 f.seek(0)
