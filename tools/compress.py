@@ -13,6 +13,12 @@ f = open("../parts/uncompressed.js","r")
 uncompressed = f.read()
 f.close()
 
+# Open the introductory comments file
+print "Getting intro file..."
+f = open("../parts/intro.js","r")
+intro = f.read()
+f.close()
+
 # Compress the code using Google's Closure Compiler with RESTful API (this is taken from https://developers.google.com/closure/compiler/docs/api-tutorial1)
 print "Compressing using the closure compiler..."
 params = urllib.urlencode([
@@ -28,12 +34,15 @@ response = c.getresponse()
 compressed = response.read()
 c.close()
 
+# Add the introductory text at the start
+combined = intro + compressed
+
 # Remove any newlines
-compressed = compressed.replace("\n","")
+combined = combined.replace("\n","")
 
 # Wrap the text
 print "Wrapping text..."
-wrapped = "\n".join([compressed[i:i+SCREEN_WIDTH] for i in range(0,len(compressed),SCREEN_WIDTH)])
+wrapped = "\n".join([combined[i:i+SCREEN_WIDTH] for i in range(0,len(combined),SCREEN_WIDTH)])
 
 # Highlight the text
 print "Highlighting syntax..."

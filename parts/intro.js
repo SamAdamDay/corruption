@@ -1,0 +1,12 @@
+/* ** 〈strong〉CORRUPTION〈/strong〉 **  by 〈em〉Sam Adam-Day〈/em〉 */
+   
+/* This is Corruption. You are a single block character. The universe in which you live is the code for the universe in which you live (it's very meta). There's code that allows you to move and code that gives you points, but also code that reduces your points and code for baddies. You must traverse this world carefully, taking care not to destroy your own capacity to exist. */ 
+/* |Universe| There are lots of discrete bits of code, each of which do different things (see |Statements| for a description of these). If a piece of code is 〈span class="bad-statement"〉red〈/span〉, then it's not valid, and no longer has an effect (this may only be temporary). The way to gain points is by eating yin-yangs, which appear spontaneously (this is probably a metaphor for something). */
+/* |Controls| Use [arrow keys] to move around. Once the universe is corrupted beyond repair, press [q], [backspace], or [esc] to see your final score. You can press [space] whenever you want to begin playing. */ 
+/* |Statements| The statements that exist in this universe do the following: - initialise the universe - allow you to move around (recognise them by UP, DOWN, LEFT, RIGHT) - display your score - change the environment in various ways - generate yin-yangs - reduce your score - self replicate and eat yin-yangs (the viruses) */ 
+/* |A Bit More| The game is, but its natrue, quite varied. It helps if you're familiar with computer programming (the language of the universe is javascript). Sometimes statements combine in unexpected ways to produce really weird results; be ready for this. If there's more than one block character, you control the one earliest. Big yin-yangs are made of smaller yin-yangs. When a virus eats a yin-yang, it leaved behind a #. */ 
+/* |Credits| This game uses the 〈a href="http://dmauro.github.io/Keypress/"〉Keypress〈/a〉 javascript library made by David Mauro, and 〈a href="http://highlightjs.org/"〉highlight.js〈/a〉 made by 〈a href="https://github.com/isagalaev/highlight.js/blob/master/AUTHORS.en.txt"〉many people〈/a〉. */ 
+/* |Source| This game is open source, and you can find it on 〈a href="https://github.com/SparklePigBang/corruption"〉Github〈/a〉. */
+   
+/* ENJOY! */
+   

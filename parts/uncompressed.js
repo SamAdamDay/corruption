@@ -27,7 +27,7 @@ $e = false;
 function w()
 {
 	if ($m) clearInterval($m);
-	n.innerHTML = hljs.highlight("javascript","/**************/\n/* Game Over! */\n/**************/\n/* Score: */\ng = "+g+";\n\n/* Press <F5> to play again. /*").value;
+	n.innerHTML = hljs.highlight("javascript","/**************/\n/* Game Over! */\n/**************/\n/* Score: */\ng = "+g+";\n\n/* Press [F5] to play again. /*").value;
 }
 
 // Register the key presses with Keypress
