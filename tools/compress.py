@@ -1,5 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python2.7
 # -*- coding: utf-8 -*-
+
+# This builds index.html by compressing, wrapping, and syntax-highlighting parts/intro.js and parts/uncompressed.js
+# HTML tags can be added to those files using 〈,〉 instead of <,>
 
 import sys
 import httplib, urllib
