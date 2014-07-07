@@ -29,8 +29,25 @@ $e = false;
 
 function w()
 {
-	if ($m) clearInterval($m);
-	n.innerHTML = hljs.highlight("javascript","/**************/\n/* Game Over! */\n/**************/\n/* Score: */\ng = "+g+";\n\n/* Press [F5] to play again. /*").value;
+	// Remove all the non-whitespace characters in a character-wise fashion
+	$v = setInterval(function () {
+		$b = c(s);
+		$c = $b.search(/\S/); // Find the first non-whitespace character
+		if ($c != -1)
+		{
+			$d = new RegExp($b[$c].replace(/([.\\+*?[^$()])/,"\\$1"),"g"); // Need to escape some characters before putting them in the regex
+			s = d($b.replace($d," ")); // Replace all instances with " "
+		}
+		else // If no characters were found, then we're done
+		{
+			if ($m) clearInterval($m);
+			n.innerHTML = 
+				"<span class='statement-c-1'>"
+				+ hljs.highlight("js","/* ** THE UNIVERSE HAS BEEN CORRUPTED ** */").value.replace("CORRUPTED","<strong>CORRUPTED</strong>")
+				+ "</span>"
+				+ hljs.highlight("js","   /* Your final score is: */ g = "+g+";   /* Press [F5] to play again. /*").value;
+		}
+	},50);
 }
 
 // Register the key presses with Keypress
@@ -130,7 +147,7 @@ function c($g,$y,$s)
 
 			if ($y)
 			{
-				$f = hljs.highlight("javascript",$f,true).value // Highlight
+				$f = hljs.highlight("js",$f,true).value // Highlight
 					.replace(new RegExp(C+C,"g"),"„÷") // Change the double yin-yangs to a control sequence temporarily
 					.replace(new RegExp(C,"g"),"<span class='yin-yang-small'>"+C+"</span>") // Pick out the singleton yin-yangs
 					.replace(/„÷/g,"<span class='yin-yang-large'>"+C+"</span>"); // Replace the double yin-yangs
@@ -145,7 +162,7 @@ function c($g,$y,$s)
 
 	}
 
-	return $y?$q.join(hljs.highlight("javascript",D,true).value):$q.join(D);
+	return $y?$q.join(hljs.highlight("js",D,true).value):$q.join(D);
 
 }
 
@@ -167,8 +184,9 @@ function q()
 	// Duplicate a few statements
 	for ($i=0;$i<5;$i++)
 	{
-		$k = u(r()*(s.length-1)); 
-		s.splice($k,0,s[$k]);
+		$k1 = u(r()*(s.length-1)); 
+		$k2 = u(r()*(s.length-1)); 
+		s.splice($k1,0,s[$k2]);
 	}
 
 	// Shuffle the statements (Fisher-Yates)
@@ -201,7 +219,7 @@ function q()
 // The array of statements
 o = s = [
 	// Replace this element with the score and the statement resetting the moved inidicator; duplicate some specific items; duplicate some random items; shuffle the statements; add a load of space; add the player; add a gold piece
-	"eval(s[1]); s.push(s[1],s[1],s[1]); for (i=0;i<5;i++){k=u(r()*(s.length-1));s.splice(k,0,s[k]);} for (i=s.length-1;i>0;i--){j=u(r()*(s.length-1));t=s[i];s[i]=s[j];s[j]=t;} b=c(s).split(S);for(i=0;i<140;i++){k=u(r()*(b.length-1));b=b.slice(0,k).concat(b[k]+new Array(u(r()*50+1)).join(S),b.slice(k+1));}s=d(b.join(S)); k=u(r()*(s.length-1));s.splice(k,0,P); b=c(s).split(t=new Array(L).join(S));k=u(r()*(b.length-1));s=d(b.slice(0,k).concat(b[k]+G,b.slice(k+1)).join(t));",
+	"eval(s[1]); s.push(s[1],s[1],s[1]); for (i=0;i<5;i++){k1=u(r()*(s.length-1));k2=u(r()*(s.length-1));s.splice(k1,0,s[k2]);} for (i=s.length-1;i>0;i--){j=u(r()*(s.length-1));t=s[i];s[i]=s[j];s[j]=t;} b=c(s).split(S);for(i=0;i<140;i++){k=u(r()*(b.length-1));b=b.slice(0,k).concat(b[k]+new Array(u(r()*50+1)).join(S),b.slice(k+1));}s=d(b.join(S)); k=u(r()*(s.length-1));s.splice(k,0,P); b=c(s).split(t=new Array(L).join(S));k=u(r()*(b.length-1));s=d(b.slice(0,k).concat(b[k]+G,b.slice(k+1)).join(t));",
 	// Update the score on the screen
 	"s[0]='score='+f+';z=1';_c=11",
 	// Move up if the up key is pressed [has defensive armour]
@@ -215,7 +233,7 @@ o = s = [
 	// Randomly swap two adjacent statements
 	" if ( r ( ) < 0.004 ) { k = u ( r ( ) * ( s . length - 2 ) ) ; t = s [ k ] ; s [ k ] = s [ k + 1 ] ; s [ k + 1 ] = t } _c = 2 ", 
 	// Randomly duplicate a statement
-	" if ( r ( ) < 0.01 ) { k = u ( r ( ) * ( s . length - 1 ) ) ; s . splice ( k , 0 , s [ k ] ) } _c = 3 ", 
+	" if ( r ( ) < 0.01 ) { k1 = u ( r ( ) * ( s . length - 1 ) ) ; k2 = u ( r ( ) * ( s . length - 1 ) ) ; s . splice ( k1 , 0 , s [ k2 ] ) } _c = 3 ", 
 	// Randomly duplicate a space
 	" if ( r ( ) < 0.04 ) { b = c ( s ) . split (  S ) ; k = u ( r ( ) * ( b . length - 2 ) ) ; s = d ( b . slice ( 0 , k ) . concat ( b [ k ] + S , b . slice ( k + 1 ) ) . join ( S ) ) } _c = 4 ",
 	// Randomly remove a space
