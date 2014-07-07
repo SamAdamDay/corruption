@@ -163,7 +163,7 @@ function q()
 /* THIS IS WHAT THE FIRST STATEMENT DOES (apart from replacing the first element with the score and duplicating some specific items)
 
 	// Duplicate a few statements
-	for ($i=0;$i<3;$i++)
+	for ($i=0;$i<5;$i++)
 	{
 		$k = u(r()*(s.length-1)); 
 		s.splice($k,0,s[$k]);
@@ -198,26 +198,26 @@ function q()
 
 // The array of statements
 s = [
-	// Replace this element with the score; duplicate some specific items; duplicate some random items; shuffle the statements; add a load of space; add the player; add a gold piece
-	"eval(s[1]); s.push(s[1],s[1],s[1]); for (i=0;i<3;i++){k=u(r()*(s.length-1));s.splice(k,0,s[k]);} for (i=s.length-1;i>0;i--){j=u(r()*(s.length-1));t=s[i];s[i]=s[j];s[j]=t;} b=c(s).split(S);for(i=0;i<140;i++){k=u(r()*(b.length-1));b=b.slice(0,k).concat(b[k]+new Array(u(r()*50+1)).join(S),b.slice(k+1));}s=d(b.join(S)); k=u(r()*(s.length-1));s.splice(k,0,P); b=c(s).split(t=new Array(L).join(S));k=u(r()*(b.length-1));s=d(b.slice(0,k).concat(b[k]+G,b.slice(k+1)).join(t));",
+	// Replace this element with the score and the statement resetting the moved inidicator; duplicate some specific items; duplicate some random items; shuffle the statements; add a load of space; add the player; add a gold piece
+	"eval(s[1]); s.push(s[1],s[1],s[1],s[2],s[3],s[4],s[5]); for (i=0;i<5;i++){k=u(r()*(s.length-1));s.splice(k,0,s[k]);} for (i=s.length-1;i>0;i--){j=u(r()*(s.length-1));t=s[i];s[i]=s[j];s[j]=t;} b=c(s).split(S);for(i=0;i<140;i++){k=u(r()*(b.length-1));b=b.slice(0,k).concat(b[k]+new Array(u(r()*50+1)).join(S),b.slice(k+1));}s=d(b.join(S)); k=u(r()*(s.length-1));s.splice(k,0,P); b=c(s).split(t=new Array(L).join(S));k=u(r()*(b.length-1));s=d(b.slice(0,k).concat(b[k]+G,b.slice(k+1)).join(t));",
 	// Update the score on the screen
-	"s[0]='score='+f+';';_c=11",
+	"s[0]='score='+f+';z=1';_c=11",
 	// Move up if the up key is pressed
-	" for ( i = 0 ; i < v . UP [ 1 ] / 100 ; i ++ ) { b = c ( s ) ; p = b . indexOf ( P ) ; x = p % W ; y = ( p - x ) / W ; y = Math . max ( 0 , y - 1 ) ; if ( b [ y * W + x + 1 ] == C ) { f += I } t = b . replace ( P , S ) ; s = d ( t . slice ( 0 , y * W + x - 1 ) + P + t . slice ( y * W + x ) ); } _c = 1 ",
+	" for ( i = 0 ; i < ( z && v . UP [ 1 ] / 100 ) ; i ++ ) { b = c ( s ) ; p = b . indexOf ( P ) ; x = p % W ; y = ( p - x ) / W ; y = Math . max ( 0 , y - 1 ) ; if ( b [ y * W + x + 1 ] == C ) { f += I } t = b . replace ( P , S ) ; s = d ( t . slice ( 0 , y * W + x - 1 ) + P + t . slice ( y * W + x ) ); } z = z && ! i ; _c = 1 ",
 	// Move down if the down key is pressed
-	" for ( i = 0 ; i < v . DOWN [ 1 ] / 100 ; i ++ ) { b = c ( s ) ; p = b . indexOf ( P ) ; x = p % W ; y = ( p - x ) / W ; y = Math . min ( Math . ceil ( b . length / W ) - 1 , y + 1 ) ; if ( b [ y * W + x + 1 ] == C ) { f += I } t = b . replace ( P , S ) ; s = d ( t . slice ( 0 , y * W + x + 1 ) + P + t . slice ( y * W + x + 2 ) ); } _c = 1 ",
+	" for ( i = 0 ; i < ( z && v . DOWN [ 1 ] / 100 ) ; i ++ ) { b = c ( s ) ; p = b . indexOf ( P ) ; x = p % W ; y = ( p - x ) / W ; y = Math . min ( Math . ceil ( b . length / W ) - 1 , y + 1 ) ; if ( b [ y * W + x + 1 ] == C ) { f += I } t = b . replace ( P , S ) ; s = d ( t . slice ( 0 , y * W + x + 1 ) + P + t . slice ( y * W + x + 2 ) ); } z = z && ! i ; _c = 1 ",
 	// Move left if the left key is pressed
-	" for ( i = 0 ; i < v . LEFT [ 1 ] / 100 ; i ++ ) { b = c ( s ) . replace ( /\\n/g , '' ) ; p = b . indexOf ( P ) ; x = p % W ; y = ( p - x ) / W ; x = Math . max ( 0 , x - 1 ) ; if ( b [ y * W + x ] == C ) { f += I } t = b . replace ( P , S ) ; s = d ( t . slice ( 0 , y * W + x ) + P + t . slice ( y * W + x + 1 ) ); } _c = 1 ",
+	" for ( i = 0 ; i < ( z && v . LEFT [ 1 ] / 100 ) ; i ++ ) { b = c ( s ) . replace ( /\\n/g , '' ) ; p = b . indexOf ( P ) ; x = p % W ; y = ( p - x ) / W ; x = Math . max ( 0 , x - 1 ) ; if ( b [ y * W + x ] == C ) { f += I } t = b . replace ( P , S ) ; s = d ( t . slice ( 0 , y * W + x ) + P + t . slice ( y * W + x + 1 ) ); } z = z && ! i ; _c = 1 ",
 	// Move right if the right key is pressed
-	" for ( i = 0 ; i < v . RIGHT [ 1 ] / 100 ; i ++ ) { b = c ( s ) . replace ( /\\n/g , '' ) ; p = b . indexOf ( P ) ; x = p % W ; y = ( p - x ) / W ; x = Math . min ( W - 1 , x + 1 ) ; if ( b [ y * W + x ] == C ) { f += I } t = b . replace ( P , S ) ; s = d ( t . slice ( 0 , y * W + x ) + P + t . slice ( y * W + x + 1 ) ); } _c = 1 ",
+	" for ( i = 0 ; i < ( z && v . RIGHT [ 1 ] / 100 ) ; i ++ ) { b = c ( s ) . replace ( /\\n/g , '' ) ; p = b . indexOf ( P ) ; x = p % W ; y = ( p - x ) / W ; x = Math . min ( W - 1 , x + 1 ) ; if ( b [ y * W + x ] == C ) { f += I } t = b . replace ( P , S ) ; s = d ( t . slice ( 0 , y * W + x ) + P + t . slice ( y * W + x + 1 ) ); } z = z && ! i ; _c = 1 ",
 	// Randomly swap two adjacent statements
 	" if ( r ( ) < 0.004 ) { k = u ( r ( ) * ( s . length - 2 ) ) ; t = s [ k ] ; s [ k ] = s [ k + 1 ] ; s [ k + 1 ] = t } _c = 2 ", 
 	// Randomly duplicate a statement
-	" if ( r ( ) < 0.009 ) { k = u ( r ( ) * ( s . length - 1 ) ) ; s . splice ( k , 0 , s [ k ] ) } _c = 3 ", 
+	" if ( r ( ) < 0.01 ) { k = u ( r ( ) * ( s . length - 1 ) ) ; s . splice ( k , 0 , s [ k ] ) } _c = 3 ", 
 	// Randomly duplicate a space
-	" if ( r ( ) < 0.3 ) { b = c ( s ) . split (  S ) ; k = u ( r ( ) * ( b . length - 1 ) ) ; s = d ( b . slice ( 0 , k ) . concat ( b [ k ] + S , b . slice ( k + 1 ) ) . join ( S ) ) } _c = 4 ",
+	" if ( r ( ) < 0.04 ) { b = c ( s ) . split (  S ) ; k = u ( r ( ) * ( b . length - 1 ) ) ; s = d ( b . slice ( 0 , k ) . concat ( b [ k ] + S , b . slice ( k + 1 ) ) . join ( S ) ) } _c = 4 ",
 	// Randomly remove a space
-	" if ( r ( ) < 0.3 ) { b = c ( s ) . split ( S ) ; k = u ( r ( ) * ( b . length - 2 ) ) ; s = d ( b . slice ( 0 , k ) . concat ( b [ k ] + b [ k + 1 ] , b . slice ( k + 2 ) ) . join ( S ) ) } _c = 5 ",
+	" if ( r ( ) < 0.04 ) { b = c ( s ) . split ( S ) ; k = u ( r ( ) * ( b . length - 2 ) ) ; s = d ( b . slice ( 0 , k ) . concat ( b [ k ] + b [ k + 1 ] , b . slice ( k + 2 ) ) . join ( S ) ) } _c = 5 ",
 	// Randomly add a gold piece
 	" if ( r ( ) < 0.06 ) { b = c ( s ) . split ( t = new Array ( G . length ) . join ( S ) ); k = u ( r ( ) * ( b . length - 2 ) ) ; s = d ( b . slice ( 0 , k ) . concat ( b [ k ] + G  + b [ k + 1 ], b . slice ( k + 2 ) ) . join ( t ) ) ; } _c = 6 ",
 	// Randomly reduce the score
