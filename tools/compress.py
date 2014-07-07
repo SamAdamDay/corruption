@@ -8,25 +8,39 @@ import sys
 import httplib, urllib
 import subprocess
 import re
+import codecs
+from pprint import pprint
 
-SCREEN_WIDTH=200
+SCREEN_WIDTH = 200
+FUNC_DELIMITER = ";5;"
 
-# Open the uncompressed file
-print "Getting uncompressed file..."
-f = open("../parts/uncompressed.js","r")
-uncompressed = f.read()
-f.close()
+print "Getting component Parts..."
 
 # Open the introductory comments file
-print "Getting intro file..."
-f = open("../parts/intro.js","r")
+f = codecs.open("../parts/intro.js","r","utf-8")
 intro = f.read()
 f.close()
+
+# Open the statements file
+f = codecs.open("../parts/statements.js","r","utf-8")
+statements = f.read()
+f.close()
+
+# Open the uncompressed file
+f = codecs.open("../parts/control.js","r","utf-8")
+control = f.read()
+f.close()
+
+# Make the statements into a function, delimited by FUNC_DELIMITER, so that is looks better
+print "Creating statement function..."
+#pprint(re.findall("//.*\n",statements))
+statements = re.sub("//.*\n","",statements,re.M|re.S)
+function = "function l() {" +re.sub("\n+",FUNC_DELIMITER,statements,re.M|re.S) + "}"
 
 # Compress the code using Google's Closure Compiler with RESTful API (this is taken from https://developers.google.com/closure/compiler/docs/api-tutorial1)
 print "Compressing using the closure compiler..."
 params = urllib.urlencode([
-	("js_code", uncompressed),
+	("js_code", control.encode("utf-8")),
 	("compilation_level", "WHITESPACE_ONLY"),
 	("output_format", "text"),
 	("output_info", "compiled_code"),
@@ -39,14 +53,14 @@ compressed = response.read()
 c.close()
 
 # Add the introductory text at the start
-combined = intro + compressed
+combined = intro + function + compressed
 
 # Remove any newlines
 combined = combined.replace("\n","")
 
 # Wrap the text, ignoring 〈tags〉
 print "Wrapping text..."
-combined = combined.decode("utf-8")
+combined = combined
 wrapped = ""
 pos = 0
 inTag = False
@@ -67,12 +81,12 @@ highlighted = subprocess.check_output(["nodejs","-e","h=require(\"highlight.js\"
 # Replace 〈,〉 with <,>
 highlighted = highlighted.decode("utf-8").replace(u"\u2329",u"<").replace(u"\u232A",u">")
 
-# Escape backshlashes for the regex engine
+# Escape backslashes for the regex engine
 highlighted = highlighted.replace("\\","\\\\")
 
 # Put the highlighted code in the HTML file
 print "Saving to the HTML file..."
-f = open("../index.html","r+")
+f = codecs.open("../index.html","r+","utf-8")
 html = f.read()
 new_html = re.sub("<pre id=\"n\">.*</pre>",'<pre id="n">'+highlighted+'</pre>',html,flags=re.S|re.M)
 f.seek(0)
