@@ -28,11 +28,12 @@ highlighted.
 Compiling
 ---------
 
-If you want to compile changes you've made to the files in `parts`, you need to
-run `python compiling/compile.py`. The requirements are:
-- Python 2.7
-- Nodejs
-- An internet connection (for using the Google closure compiler)
+If you want to compile some changes that you have made to the files in `parts`,
+then you'll need to run the command `python compiling/compile.py`. The
+requirements are:
+ - Python 2.7
+ - Nodejs
+ - An internet connection (for using theGoogle closure compiler)
 
 I've only done this on Linux however; I don't know how well it'll work on other
 systems.
