@@ -29,7 +29,7 @@ Compiling
 ---------
 
 If you want to compile changes you've made to the files in `parts`, you need to
-run `python tools/compile.py`. The requirements are:
+run `python compiling/compile.py`. The requirements are:
 - Python 2.7
 - Nodejs
 - An internet connection (for using the Google closure compiler)
