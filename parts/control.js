@@ -1,7 +1,8 @@
 M = 250; // Miliseconds per frame
 W = 200; // The width in characters of the screen
 X = 50;  // The maximum number of statements
-I = 50; // The increment in score when a gold piece is eaten
+I = 20; // The increment in score when a gold piece is eaten
+J = 30; // The increment in score when an umlaut is eaten
 D = "/**/"; // Delimiter for separating statements
 P = "█"; // The player character
 G = "/*☯☯*/"; // The gold string
