@@ -18,8 +18,48 @@ a:hover {
 	text-decoration:none;
 }
 
-span.bad-statement {
+span.statement-c-1 {
 	background-color: #FF6B6B;
+}
+
+span.statement-c0 {
+	background-color: transparent;
+}
+
+span.statement-c1 {
+	background-color: #DBFFD8;
+}
+
+span.statement-c2 {
+	background-color: #D8FFFF;
+}
+
+span.statement-c3 {
+	background-color: #D8E8FF;
+}
+
+span.statement-c4, span.statement-c5 {
+	background-color: #FFF2D8;
+}
+
+span.statement-c6 {
+	background-color: #FFFED8;
+}
+
+span.statement-c7 {
+	background-color: #FFE3D8;
+}
+
+span.statement-c8 {
+	background-color: #F3D8FF;
+}
+
+span.statement-c9, span.statement-c10 {
+	background-color: #EFFFD8;
+}
+
+span.statement-c11 {
+	background-color: #D8FFE5;
 }
 
 span.yin-yang-small {
