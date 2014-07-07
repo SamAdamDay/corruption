@@ -265,9 +265,9 @@ $m = setInterval(function () {
 	$o = []; // An array of the colours of each statement
 	for (_i in $t)
 	{
-		_c = 0; // The colour of the current statement, may be set by the statement itself
-		try { eval($t[_i]); } catch($u) { _c = -1 } // Execute the statement, ignoring any errors
-		$o[_i] = _c;
+		_z = 0; // The colour of the current statement, may be set by the statement itself
+		try { eval($t[_i]); } catch($u) { _z = -1 } // Execute the statement, ignoring any errors
+		$o[_i] = _z;
 	}
 
 	// Update the maximum score
