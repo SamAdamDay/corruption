@@ -1,5 +1,5 @@
 // Replace this element with the score and the statement resetting the moved inidicator; duplicate some specific items; duplicate some random items; shuffle the statements; add a load of space; add the player; add a gold piece
-eval(s[1]); s.push(s[1],s[1],s[1],s[2],s[2]); for (i=0;i<5;i++){k1=u(r()*(s.length-1));k2=u(r()*(s.length-1));s.splice(k1,0,s[k2]);} for (i=s.length-1;i>0;i--){j=u(r()*(s.length-1));t=s[i];s[i]=s[j];s[j]=t;} b=c(s).split(S);for(i=0;i<140;i++){k=u(r()*(b.length-1));b=b.slice(0,k).concat(b[k]+new Array(u(r()*50+1)).join(S),b.slice(k+1));}s=d(b.join(S)); k=u(r()*(s.length-1));s.splice(k,0,P); b=c(s).split(t=new Array(L).join(S));k=u(r()*(b.length-1));s=d(b.slice(0,k).concat(b[k]+G,b.slice(k+1)).join(t));
+eval(s[1]); s.push(s[1],s[1],s[1],s[2],s[2]); for(i=0;i<5;i++){k1=u(r()*(s.length-1));k2=u(r()*(s.length-1));s.splice(k1,0,s[k2]);} for (i=s.length-1;i>0;i--){j=u(r()*(s.length-1));t=s[i];s[i]=s[j];s[j]=t;} b=c(s).split(S);for(i=0;i<140;i++){k=u(r()*(b.length-1));b=b.slice(0,k).concat(b[k]+new Array(u(r()*50+1)).join(S),b.slice(k+1));}s=d(b.join(S)); k=u(r()*(s.length-1));s.splice(k,0,P); b=c(s).split(t=new Array(L).join(S));k=u(r()*(b.length-1));s=d(b.slice(0,k).concat(b[k]+G,b.slice(k+1)).join(t));
 // Update the score on the screen
 s[0]='score='+f+';z=1';_z=11
 // Randomly add a road-block
@@ -32,3 +32,5 @@ t='/*'+'*/';if(r()<0.5)s=d(c(s).replace(new RegExp(S+'{177}','m'),t+s[_i]+t));if
  a1 = '\\/' ; a2 = '\\*' ; t = P + C + a1 + a2 + S + B + 'ÄËÏÖÜ#><' ; s = d ( c ( s ) . replace ( new RegExp ( '([^' + t + '])' + a1 + a2 + '([ÄËÏÖÜ])<[ÄËÏÖÜ]' + a2 + a1 , 'g' ) , '$1/*$2>$2*/' ) . replace ( new RegExp ( '([' + t + '])' + a1 + a2 + '([ÄËÏÖÜ])<[ÄËÏÖÜ]' + a2 + a1 , 'g' ) , '/*$2<$2*/' + S ) . replace ( new RegExp ( a1 + a2 + '([ÄËÏÖÜ])>[ÄËÏÖÜ]' + a2 + a1 + '([^' + t + '])' , 'g' ) , '/*$1<$1*/$2' ) . replace ( new RegExp ( a1 + a2 + '([ÄËÏÖÜ])>[ÄËÏÖÜ]' + a2 + a1 + '([' + t + '])' , 'g' ) , S+'/*$1>$1*/' ) ) ; _z = 10 
 // Randomly add an original statement into the screen
  if ( r ( ) < 0.01 ) { s . splice ( u ( r ( ) * ( s . length - 1 ) ) , 0 , o [ u ( r ( ) * ( o . length - 1 ) ) ] ) } _z = 12 
+// Randomise the screen if the r key is pressed
+ if ( v . R ) { f -= E ; for ( i = s.length - 1 ; i > 0 ; i -- ) { j = u ( r ( ) * ( s . length - 1 ) ) ; t = s [ i ] ; s [ i ] = s [ j ] ; s [ j ] = t } } _z = 14

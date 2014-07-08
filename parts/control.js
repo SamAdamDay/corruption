@@ -3,6 +3,7 @@ W = 200; // The width in characters of the screen
 X = 50;  // The maximum number of statements
 I = 20; // The increment in score when a gold piece is eaten
 J = 30; // The increment in score when an umlaut is eaten
+E = 300; // The decrease in score when the screen in randomised
 D = "/**/"; // Delimiter for separating statements
 P = "█"; // The player character
 G = "/*☯☯*/"; // The gold string
@@ -23,7 +24,8 @@ v = {
 	"UP":[false,0,false], // Up
 	"DOWN":[false,0,false], // Down
 	"LEFT":[false,0,false], // Left
-	"RIGHT":[false,0,false]  // Right
+	"RIGHT":[false,0,false],  // Right
+	"R":false // r key
 }
 
 // Main loop lock
@@ -92,6 +94,12 @@ $l.register_many([
 		},
 		"on_keyup": function() {
 			v.RIGHT[0] = false;
+		}
+	},
+	{
+		"keys": "r", 
+		"on_keydown": function() {
+			v.R = true;
 		}
 	},
 	{
@@ -269,6 +277,9 @@ $m = setInterval(function () {
 		try { eval($t[_i]); } catch($u) { _z = -1 } // Execute the statement, ignoring any errors
 		$o[_i] = _z;
 	}
+
+	// Reset the r key
+	v.R = false;
 
 	// Update the maximum score
 	g=f>g?f:g;
