@@ -1,8 +1,8 @@
 M = 250; // Miliseconds per frame
 W = 200; // The width in characters of the screen
 X = 50;  // The maximum number of statements
-I = 20; // The increment in score when a gold piece is eaten
-J = 30; // The increment in score when an umlaut is eaten
+I = 40; // The increment in score when a gold piece is eaten
+J = 20; // The increment in score when an umlaut is eaten
 E = 300; // The decrease in score when the screen in randomised
 D = "/**/"; // Delimiter for separating statements
 P = "█"; // The player character
@@ -16,7 +16,7 @@ Q = 350; // The maximum speed
 A = ";5;"; // The delimiter for the function of statements
 
 f = 0; // The score
-g = 0; // The maximum of the score over time
+$g = 0; // The maximum of the score over time
 
 // The status of keys for the current iteration of the main loop (whether they are being pressed or not)
 // [isPressed,speed,pressedLastLoop]
@@ -31,16 +31,16 @@ v = {
 // Main loop lock
 $e = false;
 
-function w()
+function $w()
 {
 	// Remove all the non-whitespace characters in a character-wise fashion
-	$v = setInterval(function () {
-		$b = c(s);
-		$c = $b.search(/\S/); // Find the first non-whitespace character
-		if ($c != -1)
+	$z = setInterval(function () {
+		$b = $c(s);
+		$x = $b.search(/\S/); // Find the first non-whitespace character
+		if ($x != -1)
 		{
-			$d = new RegExp($b[$c].replace(/([.\\+*?[^$()])/,"\\$1"),"g"); // Need to escape some characters before putting them in the regex
-			s = d($b.replace($d," ")); // Replace all instances with " "
+			$r = new RegExp($b[$x].replace(/([.\\+*?[^$()])/,"\\$1"),"g"); // Need to escape some characters before putting them in the regex
+			s = $d($b.replace($r," ")); // Replace all instances with " "
 		}
 		else // If no characters were found, then we're done
 		{
@@ -49,7 +49,8 @@ function w()
 				"<span class='statement-c-1'>"
 				+ hljs.highlight("js","/* ** THE UNIVERSE HAS BEEN CORRUPTED ** */").value.replace("CORRUPTED","<strong>CORRUPTED</strong>")
 				+ "</span>"
-				+ hljs.highlight("js","   /* Your final score is: */ g = "+g+";   /* Press [F5] to play again. /*").value;
+				+ hljs.highlight("js","   /* Your final score is: */ $g = "+$g+";   /* Press [F5] to play again. /*").value;
+			clearInterval($z);
 		}
 	},50);
 }
@@ -104,15 +105,15 @@ $l.register_many([
 	},
 	{
 		"keys": "q",
-		"on_keydown": w
+		"on_keydown": $w
 	},
 	{
 		"keys": "backspace",
-		"on_keydown": w
+		"on_keydown": $w
 	},
 	{
 		"keys": "escape",
-		"on_keydown": w
+		"on_keydown": $w
 	}
 
 ]);
@@ -124,33 +125,33 @@ u = Math.round;
 // Concatenates statements, wrapping and adding the delimiter
 // The optional $y tells the function whether or not it should highlight
 // In that case, $s is an array of the background colours of the statements
-function c($g,$y,$s)
+// We keep a backup copy, in case c gets overwritten in the game
+$c = c = function($v,$y,$s)
 {
 
 	$y = (typeof $y != "undefined") && $y;
 
-	$w = -1; // Current line length
+	$n = -1; // Current line length
 	$q = []; // The width adjusted statements
 
-	for ($i in $g)
+	for ($i in $v)
 	{
-
-		if ( typeof $g[$i] == "string"  && $g[$i])
+		if (typeof $v[$i] == "string" && $v[$i])
 		{
 
-			$f = $g[$i]; // The current statement
+			$f = $v[$i]; // The current statement
 
- 			// What the new value of $w will be
-			$v = ($w + $f.length) % W;
-			if ($v + D.length >= W) {$v = D.length-1;} // The delimiter is a 'block', which sticks together under wrapping
-			else $v += D.length;
+ 			// What the new value of $n will be
+			$h = ($n + $f.length) % W;
+			if ($h + D.length >= W) {$h = D.length-1;} // The delimiter is a 'block', which sticks together under wrapping
+			else $h += D.length;
 
-			if ($w + $f.length + D.length >= W) // If adding the statement causes the line to overflow
+			if ($n + $f.length + D.length >= W) // If adding the statement causes the line to overflow
 			{
-				$a = [$f.slice(0,W-$w-1)]; // Get the up to the first offence
-				for ($j=0;$j<=Math.floor(($w+$f.length+D.length-W)/W);$j++) // Get the rest of the offenses
+				$a = [$f.slice(0,W-$n-1)]; // Get the up to the first offence
+				for ($j=0;$j<=Math.floor(($n+$f.length+D.length-W)/W);$j++) // Get the rest of the offenses
 				{
-					$a.push($f.slice(W-$w-1+$j*W,W-$w-1+($j+1)*W));
+					$a.push($f.slice(W-$n-1+$j*W,W-$n-1+($j+1)*W));
 				}
 				$f = $a.join("\n"); // Add newlines to wrap
 			}
@@ -161,12 +162,12 @@ function c($g,$y,$s)
 					.replace(new RegExp(C+C,"g"),"„÷") // Change the double yin-yangs to a control sequence temporarily
 					.replace(new RegExp(C,"g"),"<span class='yin-yang-small'>"+C+"</span>") // Pick out the singleton yin-yangs
 					.replace(/„÷/g,"<span class='yin-yang-large'>"+C+"</span>"); // Replace the double yin-yangs
-				$f = "<span class='statement-c"+$o[$i]+"'>"+$f+"</span>"; // If an error occurred with this statement, highlight that
+				$f = "<span class='statement-c"+$s[$i]+"'>"+$f+"</span>"; // If an error occurred with this statement, highlight that
 			}
 
 			$q.push($f); // Add the statement
 
-			$w = $v;
+			$n = $h;
 
 		}
 
@@ -177,7 +178,8 @@ function c($g,$y,$s)
 }
 
 // Takes a wrapped and delimited screen and returns the corresponding array of elements
-function d($h)
+// We keep a backup copy, in case d gets overwritten in the game
+$d = d = function($h)
 {
 	return $h.replace(new RegExp("\n","g"),"").split(D);
 }
@@ -226,7 +228,7 @@ function q()
 
 */
 
-// Determine the array of statements by looking at the contents of the function s(), and using the delimiter A
+// Determine the array of statements by looking at the contents of the function l(), and using the delimiter A
 // A little funky, I know.
 o = s = (l + "").slice(14,-1).split(A);
 
@@ -236,57 +238,67 @@ $m = setInterval(function () {
 	// If we haven't finished the previous loop, don't execute this one
 	if ($e) return false;
 
-	// Lock
-	$e = true;
-
-	// Make sure s has at most X statements (to prevent run-away blow-up)
-	while (s.length >= X)
+	try 
 	{
-		$k = u(r()*(s.length-1));
-		if (s[$k].indexOf(P) == -1)
-		{
-			s.splice($k,1);
-		}
-	}
 
-	// Reset the directional speeds if the corresponding button is not being pressed
-	for ($i in v)
-	{
-		if (v[$i][1] > 0) // If the speed is positive
+		// Lock
+		$e = true;
+
+		// Make sure s has at most X statements (to prevent run-away blow-up)
+		while (s.length >= X)
 		{
-			if (!v[$i][0]) // If the button is not down
+			$k = u(r()*(s.length-1));
+			if (s[$k].indexOf(P) == -1)
 			{
-				if (v[$i][2]) // There was movement last loop
-				{
-					v[$i][1] = 0;
-					v[$i][2] = false;
-				}
-				else v[$i][2] = true; // Otherwise, leave the speed as it is, so that there is speed this loop
+				s.splice($k,1);
 			}
-			else v[$i][2] = true; // Otherwise, we're moving this turn
 		}
-		else v[$i][2] = false; // Otherwise, it is not pressed this loop
-	}
 
-	// Execute all the statements in s
-	$t = s; // Make a copy of s to iterate over, as some statments may change the contents of s
-	$o = []; // An array of the colours of each statement
-	for (_i in $t)
+		// Reset the directional speeds if the corresponding button is not being pressed
+		for ($i in v)
+		{
+			if (v[$i][1] > 0) // If the speed is positive
+			{
+				if (!v[$i][0]) // If the button is not down
+				{
+					if (v[$i][2]) // There was movement last loop
+					{
+						v[$i][1] = 0;
+						v[$i][2] = false;
+					}
+					else v[$i][2] = true; // Otherwise, leave the speed as it is, so that there is speed this loop
+				}
+				else v[$i][2] = true; // Otherwise, we're moving this turn
+			}
+			else v[$i][2] = false; // Otherwise, it is not pressed this loop
+		}
+
+		// Execute all the statements in s
+		$t = s; // Make a copy of s to iterate over, as some statments may change the contents of s
+		$o = []; // An array of the colours of each statement
+		for (_i in $t)
+		{
+			_z = 0; // The colour of the current statement, may be set by the statement itself
+			try { eval($t[_i]); } catch($u) { _z = -1 } // Execute the statement, ignoring any error
+			$o[_i] = _z;
+		}
+
+		// Reset the r key
+		v.R = false;
+
+		// Update the maximum score
+		$g=f>$g?f:$g;
+
+		// Print out the current statements to the screen, highlighting them and inserting newlines as nessecary
+		// TODO: Adding \n will sometimes cause keywords not to be highlighted
+		n.innerHTML = c(s,true,$o);
+
+	}
+	catch ($u) // If there's errors in the above, then really bad things have happened, so end the game
 	{
-		_z = 0; // The colour of the current statement, may be set by the statement itself
-		try { eval($t[_i]); } catch($u) { _z = -1 } // Execute the statement, ignoring any errors
-		$o[_i] = _z;
+		clearInterval($m);
+		$w();
 	}
-
-	// Reset the r key
-	v.R = false;
-
-	// Update the maximum score
-	g=f>g?f:g;
-
-	// Print out the current statements to the screen, highlighting them and inserting newlines as nessecary
-	// TODO: Adding \n will sometimes cause keywords not to be highlighted
-	n.innerHTML = c(s,true,$o);
 
 	// Release lock
 	$e = false;

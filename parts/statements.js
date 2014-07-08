@@ -1,5 +1,5 @@
 // Replace this element with the score and the statement resetting the moved inidicator; duplicate some specific items; duplicate some random items; shuffle the statements; add a load of space; add the player; add a gold piece
-eval(s[1]); s.push(s[1],s[1],s[1],s[2],s[2]); for(i=0;i<5;i++){k1=u(r()*(s.length-1));k2=u(r()*(s.length-1));s.splice(k1,0,s[k2]);} for (i=s.length-1;i>0;i--){j=u(r()*(s.length-1));t=s[i];s[i]=s[j];s[j]=t;} b=c(s).split(S);for(i=0;i<140;i++){k=u(r()*(b.length-1));b=b.slice(0,k).concat(b[k]+new Array(u(r()*50+1)).join(S),b.slice(k+1));}s=d(b.join(S)); k=u(r()*(s.length-1));s.splice(k,0,P); b=c(s).split(t=new Array(L).join(S));k=u(r()*(b.length-1));s=d(b.slice(0,k).concat(b[k]+G,b.slice(k+1)).join(t));
+eval(s[1]); s.push(s[1],s[1],s[1],s[2],s[2]); for(i=0;i<5;i++){k1=u(r()*(s.length-1));k2=u(r()*(s.length-1));s.splice(k1,0,s[k2]);} for (i=s.length-1;i>0;i--){j=u(r()*(s.length-1));t=s[i];s[i]=s[j];s[j]=t;} b=c(s).split(S);for(i=0;i<140;i++){k=u(r()*(b.length-1));b=b.slice(0,k).concat(b[k]+new Array(u(r()*50+1)).join(S),b.slice(k+1));}s=d(b.join(S)); k=u(r()*(s.length-1));s.splice(k,0,P); b=c(s).split(t=new Array(L).join(S));k=u(r()*(b.length-1));s=d(b.slice(0,k).concat(b[k]+G,b.slice(k+1)).join(t)); _z=0
 // Update the score on the screen
 s[0]='score='+f+';z=1';_z=11
 // Randomly add a road-block
