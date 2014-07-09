@@ -1,3 +1,6 @@
+// Get rid of the space listener, since we won't be needing it anymore
+$l.unregister_combo("space");
+
 M = 250; // Miliseconds per frame
 W = 200; // The width in characters of the screen
 X = 50;  // The maximum number of statements
@@ -6,9 +9,9 @@ J = 20; // The increment in score when an umlaut is eaten
 E = 300; // The decrease in score when the screen in randomised
 D = "/**/"; // Delimiter for separating statements
 P = "█"; // The player character
-G = "/*☯☯*/"; // The gold string
+G = "/*☯☯*/"; // The gold string; if this is changed the corresponding length in statements.js must be changed
 C = "☯"; // The gold piece
-R = "/*×*/" // The road-block string
+R = "/*×*/" // The road-block string; if this is changed the corresponding length in statements.js must be changed
 B = "×" // The road-block character
 S = " "; //  A single space
 L = 6; // The length of the gold string
@@ -21,15 +24,17 @@ $g = 0; // The maximum of the score over time
 // The status of keys for the current iteration of the main loop (whether they are being pressed or not)
 // [isPressed,speed,pressedLastLoop]
 v = {
-	"UP":[false,0,false], // Up
-	"DOWN":[false,0,false], // Down
-	"LEFT":[false,0,false], // Left
-	"RIGHT":[false,0,false],  // Right
-	"R":false // r key
+
+	"UP":[0,0,0], // Up
+	"DOWN":[0,0,0], // Down
+	"LEFT":[0,0,0], // Left
+	"RIGHT":[0,0,0],  // Right
+
+	"R":0 // r key
 }
 
 // Main loop lock
-$e = false;
+$e = 0;
 
 function $w()
 {
@@ -236,13 +241,13 @@ o = s = (l + "").slice(14,-1).split(A);
 $m = setInterval(function () {
 
 	// If we haven't finished the previous loop, don't execute this one
-	if ($e) return false;
+	if ($e) return;
 
 	try 
 	{
 
 		// Lock
-		$e = true;
+		$e = 1; // true
 
 		// Make sure s has at most X statements (to prevent run-away blow-up)
 		while (s.length >= X)
@@ -264,13 +269,13 @@ $m = setInterval(function () {
 					if (v[$i][2]) // There was movement last loop
 					{
 						v[$i][1] = 0;
-						v[$i][2] = false;
+						v[$i][2] = 0; // false
 					}
-					else v[$i][2] = true; // Otherwise, leave the speed as it is, so that there is speed this loop
+					else v[$i][2] = 1; // true // Otherwise, leave the speed as it is, so that there is speed this loop
 				}
-				else v[$i][2] = true; // Otherwise, we're moving this turn
+				else v[$i][2] = 1; // true // Otherwise, we're moving this turn
 			}
-			else v[$i][2] = false; // Otherwise, it is not pressed this loop
+			else v[$i][2] = 0; // false // Otherwise, it is not pressed this loop
 		}
 
 		// Execute all the statements in s
@@ -279,19 +284,19 @@ $m = setInterval(function () {
 		for (_i in $t)
 		{
 			_z = 0; // The colour of the current statement, may be set by the statement itself
-			try { eval($t[_i]); } catch($u) { _z = -1 } // Execute the statement, ignoring any error
+			try { eval($t[_i]); } catch($u) { console.log($u); _z = -1 } // Execute the statement, ignoring any error
 			$o[_i] = _z;
 		}
 
 		// Reset the r key
-		v.R = false;
+		v.R = 0; // false
 
 		// Update the maximum score
 		$g=f>$g?f:$g;
 
 		// Print out the current statements to the screen, highlighting them and inserting newlines as nessecary
 		// TODO: Adding \n will sometimes cause keywords not to be highlighted
-		n.innerHTML = c(s,true,$o);
+		n.innerHTML = c(s,1,$o);
 
 	}
 	catch ($u) // If there's errors in the above, then really bad things have happened, so end the game
@@ -301,6 +306,6 @@ $m = setInterval(function () {
 	}
 
 	// Release lock
-	$e = false;
+	$e = 0; // false
 
 },M);
