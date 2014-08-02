@@ -4,9 +4,9 @@ body {
 }
 
 pre#n {
-	font-family: "Ubuntu Mono";
+	font-family: "Ubuntu Mono",monospace;
 	margin:0;
-	font-size:13px;
+	font-size:12px;
 }
 
 a {
