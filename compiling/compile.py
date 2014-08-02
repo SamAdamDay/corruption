@@ -5,6 +5,7 @@
 # HTML tags can be added to those files using 〈,〉 instead of <,>
 
 import sys
+import os
 import httplib, urllib
 import subprocess
 import re
@@ -14,20 +15,24 @@ from pprint import pprint
 SCREEN_WIDTH = 200
 FUNC_DELIMITER = ";5;"
 
+# Move to the project root directory by getting the current script's path and moving to its parent
+os.chdir(os.path.dirname(os.path.realpath(sys.argv[0])));
+os.chdir("..");
+
 print "Getting component Parts..."
 
 # Open the introductory comments file
-f = codecs.open("../parts/intro.js","r","utf-8")
+f = codecs.open("parts/intro.js","r","utf-8")
 intro = f.read()
 f.close()
 
 # Open the statements file
-f = codecs.open("../parts/statements.js","r","utf-8")
+f = codecs.open("parts/statements.js","r","utf-8")
 statements = f.read()
 f.close()
 
 # Open the uncompressed file
-f = codecs.open("../parts/control.js","r","utf-8")
+f = codecs.open("parts/control.js","r","utf-8")
 control = f.read()
 f.close()
 
@@ -86,7 +91,7 @@ highlighted = highlighted.replace("\\","\\\\")
 
 # Put the highlighted code in the HTML file
 print "Saving to the HTML file..."
-f = codecs.open("../index.html","r+","utf-8")
+f = codecs.open("index.html","r+","utf-8")
 html = f.read()
 new_html = re.sub("<pre id=\"n\">.*</pre>",'<pre id="n">'+highlighted+'</pre>',html,flags=re.S|re.M)
 f.seek(0)
